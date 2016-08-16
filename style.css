@@ -3,7 +3,7 @@
 }
 body, html {
   font-size: 0.4vw;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: black;
   background: #7DAAFF;
   background: #7DAAFF linear-gradient(to bottom, #7daaff 67%,#ffffff 100%);
@@ -153,4 +153,14 @@ shard-map span[data-dir="180"]:before {
     width: 100vw;
     height: 100vw;
   }
+}
+
+/* stamp */
+body::after {
+  content: 'by GipsyKing';
+  display: block;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 4em;
 }
