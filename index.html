@@ -3,8 +3,182 @@
   <head>
     <meta charset="utf-8">
     <title>Civcraft: Worlds Map</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
+    <style type="text/css">
+* {
+  box-sizing: border-box;
+}
+body, html {
+  font-size: 0.4vw;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  background: #7DAAFF;
+  background: #7DAAFF linear-gradient(to bottom, #7daaff 67%,#ffffff 100%);
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  perspective: 1000px;
+}
+backdrop::before {
+  content: '';
+  display: block;
+  height: 100%;
+  background: url(images/clouds.png) repeat-x;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2732px;
+  transform: rotateX(-80deg) scale(2);
+  animation: backgroundScroll 20s linear infinite;
+}
+@keyframes backgroundScroll {
+  from {background-position: 0 0;}
+  to {background-position: -1366px 0;}
+}
+
+shard-map {
+  font-size: 4em;
+  width: 100vh;
+  height: 100vh;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+shard-map > div {
+  height: 15%;
+  flex: 0 0 15%;
+  display: flex;
+  justify-content: center;
+}
+shard-map > div:nth-child(even) {
+  height: 5%;
+  flex: 0 0 5%;
+}
+
+shard-map > div > span {
+  width: 15%;
+  flex: 0 0 15%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+shard-map > div > span:nth-child(even) {
+  width: 5%;
+  flex: 0 0 5%;
+}
+shard-map > div > span:nth-child(odd) {
+  /*align-items: flex-start;*/
+}
+shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) {
+  position: relative;
+  z-index: 1;
+}
+shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > b {
+  /*text*/
+  display: block;
+  z-index: 1;
+  color: white;
+  text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
+}
+shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > span {
+  /*image container*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  /*right: 0;
+  bottom: 0;*/
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 50%;
+  border: 0.25vw solid black;
+  background: black;
+  box-shadow: 0 1px 2vw white;
+  overflow: hidden;
+}
+shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty):hover > span {
+  width: 110%;
+  height: 110%;
+  margin-left: -5%;
+  margin-top: -5%;
+}
+shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > span > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  max-height: 100%;
+}
+
+/*shard-map > div:nth-child(even) > span,
+shard-map > div > span:nth-child(even):not(:empty) {
+  font-family: monospace;
+  font-size: 10em;
+}*/
+
+shard-map span[data-dir] {
+  position: relative;
+}
+shard-map span[data-dir]:before {
+  display: block;
+  content: '';
+  position: absolute;
+  left: -100%;
+  right: -100%;
+  border: 0.12vw dashed black;
+  box-shadow: 0 0 0.2vw white;
+}
+shard-map span[data-dir="45"]:before {
+  transform: rotate(45deg);
+}
+shard-map span[data-dir="315"]:before {
+  transform: rotate(315deg);
+}
+shard-map span[data-dir="90"]:before {
+  left: 0;
+  right: 0;
+  transform: rotate(90deg);
+}
+shard-map span[data-dir="180"]:before {
+  transform: rotate(180deg);
+}
+
+@media screen and (orientation: portrait) {
+  body, html {
+    font-size: 0.4vh;
+  }
+  shard-map {
+    width: 100vw;
+    height: 100vw;
+  }
+}
+
+/* stamp */
+body::after {
+  content: 'by GipsyKing';
+  display: block;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 4em;
+}
+
+    </style>
   </head>
   <body>
 <backdrop></backdrop>
@@ -20,7 +194,7 @@
     <span></span>
     <span></span>
     <span>
-      <b>End</b>
+      <b>Ovid</b>
       <span><img src="images/end.png"></span>
     </span>
     <span></span>
