@@ -1,10 +1,15 @@
+* {
+  box-sizing: border-box;
+}
 body, html {
-  font-size: 62.5%; /* font-size 1em = 10px on default browser settings */
+  font-size: 0.4vw;
   font-family: sans-serif;
   color: black;
   background: #D6F1FF;
   height: 100%;
   width: 100%;
+  margin: 0;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,18 +17,17 @@ body, html {
 
 shard-map {
   font-size: 4em;
-  width: 100%;
-  height: 100%;
-  max-height: 1000px;
+  width: 100vh;
+  height: 100vh;
   max-width: 1000px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+
 shard-map > div {
   height: 15%;
   flex: 0 0 15%;
-  max-height: 100px;
   display: flex;
   justify-content: center;
 }
@@ -35,7 +39,6 @@ shard-map > div:nth-child(even) {
 shard-map > div > span {
   width: 15%;
   flex: 0 0 15%;
-  max-width: 100px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -45,8 +48,77 @@ shard-map > div > span:nth-child(even) {
   width: 5%;
   flex: 0 0 5%;
 }
+shard-map > div > span:nth-child(odd) {
+  /*align-items: flex-start;*/
+}
 shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) {
-  background-color: black;
+  position: relative;
+  z-index: 1;
+}
+shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > b {
+  /*text*/
+  display: block;
+  z-index: 1;
   color: white;
+  text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
+}
+shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > span {
+  /*image container*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  /*right: 0;
+  bottom: 0;*/
+  width: 100%;
+  height: 100%;
+  display: block;
   border-radius: 50%;
+  border: 2px solid black;
+  background: black;
+  box-shadow: 0 1px 6px black;
+  overflow: hidden;
+}
+shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > span > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  max-height: 100%;
+}
+
+/*shard-map > div:nth-child(even) > span,
+shard-map > div > span:nth-child(even):not(:empty) {
+  font-family: monospace;
+  font-size: 10em;
+}*/
+
+shard-map span[data-dir]:before {
+  display: block;
+  content: '';
+  width: 100%;
+  border: 1px solid black;
+}
+shard-map span[data-dir="45"]:before {
+  transform: rotate(45deg) scale(4);
+}
+shard-map span[data-dir="315"]:before {
+  transform: rotate(315deg) scale(4);
+}
+shard-map span[data-dir="90"]:before {
+  border-width: 2px;
+  transform: rotate(90deg) scale(2);
+}
+shard-map span[data-dir="180"]:before {
+  border-width: 2px;
+  transform: rotate(180deg) scale(2);
+}
+
+@media screen and (orientation: portrait) {
+  body, html {
+    font-size: 0.4vh;
+  }
+  shard-map {
+    width: 100vw;
+    height: 100vw;
+  }
 }
