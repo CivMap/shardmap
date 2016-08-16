@@ -14,9 +14,17 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
   perspective: 1000px;
 }
-body::before {
+backdrop::before {
   content: '';
   display: block;
   height: 100%;
