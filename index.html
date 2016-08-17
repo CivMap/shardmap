@@ -37,7 +37,7 @@ body::after {
   bottom: 10px;
   font-size: 4em;
 }
-backdrop {
+.backdrop {
   position: absolute;
   top: 0;
   left: 0;
@@ -46,7 +46,7 @@ backdrop {
   overflow: hidden;
   perspective: 1000px;
 }
-backdrop::before {
+.backdrop::before {
   content: '';
   display: block;
   height: 100%;
@@ -63,7 +63,7 @@ backdrop::before {
   to {background-position: -1366px 0;}
 }
 
-shard-map {
+.shard-map {
   font-size: 4em;
   width: 100vh;
   height: 100vh;
@@ -73,18 +73,18 @@ shard-map {
   justify-content: center;
 }
 
-shard-map > div {
+.shard-map > div {
   height: 15%;
   flex: 0 0 15%;
   display: flex;
   justify-content: center;
 }
-shard-map > div:nth-child(even) {
+.shard-map > div:nth-child(even) {
   height: 5%;
   flex: 0 0 5%;
 }
 
-shard-map > div > span {
+.shard-map > div > span {
   width: 15%;
   flex: 0 0 15%;
   text-align: center;
@@ -92,25 +92,25 @@ shard-map > div > span {
   align-items: center;
   justify-content: center;
 }
-shard-map > div > span:nth-child(even) {
+.shard-map > div > span:nth-child(even) {
   width: 5%;
   flex: 0 0 5%;
 }
-shard-map > div > span:nth-child(odd) {
+.shard-map > div > span:nth-child(odd) {
   /*align-items: flex-start;*/
 }
-shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) {
+.shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) {
   position: relative;
   z-index: 1;
 }
-shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > b {
+.shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > b {
   /*text*/
   display: block;
   z-index: 1;
   color: white;
   text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
 }
-shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > span {
+.shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > span {
   /*image container*/
   position: absolute;
   top: 0;
@@ -126,13 +126,13 @@ shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > span {
   box-shadow: 0 1px 2vw white;
   overflow: hidden;
 }
-shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty):hover > span {
+.shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty):hover > span {
   width: 110%;
   height: 110%;
   margin-left: -5%;
   margin-top: -5%;
 }
-shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > span > img {
+.shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > span > img {
   position: absolute;
   top: 0;
   left: 0;
@@ -140,16 +140,16 @@ shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > span > img {
   max-height: 100%;
 }
 
-/*shard-map > div:nth-child(even) > span,
-shard-map > div > span:nth-child(even):not(:empty) {
+/*.shard-map > div:nth-child(even) > span,
+.shard-map > div > span:nth-child(even):not(:empty) {
   font-family: monospace;
   font-size: 10em;
 }*/
 
-shard-map span[data-dir] {
+.shard-map span[data-dir] {
   position: relative;
 }
-shard-map span[data-dir]:before {
+.shard-map span[data-dir]:before {
   display: block;
   content: '';
   position: absolute;
@@ -160,21 +160,21 @@ shard-map span[data-dir]:before {
   border: 0.12vw dashed black;
   box-shadow: 0 0 0.2vw white;
 }
-shard-map span[data-dir="45"]:before {
+.shard-map span[data-dir="45"]:before {
   transform: rotate(45deg);
 }
-shard-map span[data-dir="315"]:before {
+.shard-map span[data-dir="315"]:before {
   transform: rotate(315deg);
 }
-shard-map span[data-dir="90"]:before {
+.shard-map span[data-dir="90"]:before {
   left: 0;
   right: 0;
   transform: rotate(90deg);
 }
-shard-map span[data-dir="180"]:before {
+.shard-map span[data-dir="180"]:before {
   transform: rotate(180deg);
 }
-shard-map span[data-type="endportal"]:before {
+.shard-map span[data-type="endportal"]:before {
   /*z-index: 2;*/
   animation: dash .25s infinite linear;
 }
@@ -187,21 +187,21 @@ shard-map span[data-type="endportal"]:before {
   body, html {
     font-size: 0.4vh;
   }
-  shard-map {
+  .shard-map {
     width: 100vw;
     height: 100vw;
   }
 }
-@media screen and (max-width: 1000px) {
-  backdrop {
+@media screen and (max-width: 900px) {
+  .backdrop {
     display: none;
   }
 }
     </style>
   </head>
   <body>
-<backdrop></backdrop>
-<shard-map>
+<div class="backdrop"></div>
+<div class="shard-map">
   <div>
     <span></span>
     <span></span>
@@ -340,7 +340,7 @@ shard-map span[data-type="endportal"]:before {
     <span></span>
     <span></span>
   </div>
-</shard-map>
+</div>
   </body>
 </html>
 
