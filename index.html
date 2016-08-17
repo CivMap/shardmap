@@ -99,18 +99,18 @@ body::after {
 .shard-map > div > span:nth-child(odd) {
   /*align-items: flex-start;*/
 }
-.shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) {
+.shard-map > div:nth-child(odd) > .shard {
   position: relative;
   z-index: 1;
 }
-.shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > b {
+.shard-map > div:nth-child(odd) > .shard > b {
   /*text*/
   display: block;
   z-index: 1;
   color: white;
   text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
 }
-.shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > span {
+.shard-map > div:nth-child(odd) > .shard > span {
   /*image container*/
   position: absolute;
   top: 0;
@@ -126,13 +126,13 @@ body::after {
   box-shadow: 0 1px 2vw white;
   overflow: hidden;
 }
-.shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty):hover > span {
+.shard-map > div:nth-child(odd) > .shard:hover > span {
   width: 110%;
   height: 110%;
   margin-left: -5%;
   margin-top: -5%;
 }
-.shard-map > div:nth-child(odd) > span:nth-child(odd):not(:empty) > span > img {
+.shard-map > div:nth-child(odd) > .shard > span > img {
   position: absolute;
   top: 0;
   left: 0;
@@ -153,8 +153,8 @@ body::after {
   display: block;
   content: '';
   position: absolute;
-  left: -200%;
-  right: -200%;
+  left: -100%;
+  right: -100%;
   top: 50%;
   bottom: 100%;
   border: 0.12vw dashed black;
@@ -173,14 +173,6 @@ body::after {
 }
 .shard-map span[data-dir="180"]:before {
   transform: rotate(180deg);
-}
-.shard-map span[data-type="endportal"]:before {
-  /*z-index: 2;*/
-  animation: dash .25s infinite linear;
-}
-@keyframes dash {
-  from {transform: translate(0) rotate(45deg)}
-  to {transform: translate(-4px, -4px) rotate(45deg)}
 }
 
 @media screen and (orientation: portrait) {
@@ -205,17 +197,17 @@ body::after {
   <div>
     <span></span>
     <span></span>
-    <span>
+    <span class="shard">
       <b>Sheol</b>
       <span><img src="images/sheol.png"></span>
     </span>
     <span></span>
-    <span></span>
-    <span></span>
-    <span>
+    <span class="shard" title="Multiple portals">
       <b>Ovid</b>
       <span><img src="images/end.png"></span>
     </span>
+    <span></span>
+    <span></span>
     <span></span>
     <span></span>
   </div>
@@ -227,25 +219,25 @@ body::after {
     <span></span>
     <span></span>
     <span></span>
-    <span data-dir="45" data-type="endportal"></span>
+    <span></span>
     <span></span>
   </div>
   <div>
-    <span>
+    <span class="shard">
       <b>Abydos</b>
       <span><img src="images/abydos.png"></span>
     </span>
     <span></span>
     <span></span>
     <span></span>
-    <span>
+    <span class="shard">
       <b>Tigrillo</b>
       <span><img src="images/tigrillo.png"></span>
     </span>
     <span></span>
     <span></span>
     <span></span>
-    <span>
+    <span class="shard">
       <b>Naunet</b>
       <span><img src="images/naunet.png"></span> 
     </span>
@@ -264,17 +256,17 @@ body::after {
   <div>
     <span></span>
     <span></span>
-    <span>
+    <span class="shard">
       <b>Eilon</b>
       <span><img src="images/eilon.jpg"></span>
     </span>
     <span data-dir="180"></span>
-    <span>
+    <span class="shard">
       <b>Ulca Felya</b>
       <span><img src="images/ulca_felya.jpg"></span>
     </span>
     <span data-dir="180"></span>
-    <span>
+    <span class="shard">
       <b>Tjikko</b>
       <span><img src="images/tjikko.png"></span>
     </span>
@@ -293,21 +285,21 @@ body::after {
     <span></span>
   </div>
   <div>
-    <span>
+    <span class="shard">
       <b>Padzahr</b>
       <span><img src="images/padzahr.png"></span>
     </span>
     <span></span>
     <span></span>
     <span></span>
-    <span>
+    <span class="shard">
       <b>Dracontas</b>
       <span><img src="images/dracontas.png"></span>
     </span>
     <span></span>
     <span></span>
     <span></span>
-    <span>
+    <span class="shard">
       <b>Rokko Steppe</b>
       <span><img src="images/rokko_steppe.png"></span>
     </span>
@@ -326,14 +318,14 @@ body::after {
   <div>
     <span></span>
     <span></span>
-    <span>
+    <span class="shard">
       <b>Isolde</b>
       <span><img src="images/isolde.jpg"></span>
     </span>
     <span></span>
     <span></span>
     <span></span>
-    <span>
+    <span class="shard">
       <b>Volans</b>
       <span><img src="images/volans.png"></span>
     </span>
