@@ -8,12 +8,15 @@
 * {
   box-sizing: border-box;
 }
+html {
+  background: #7DAAFF;
+  background: #7DAAFF linear-gradient(to bottom, #7daaff 67%,#ffffff 100%);
+}
 body, html {
   font-size: 0.4vw;
   font-family: 'Roboto', sans-serif;
   color: black;
-  background: #7DAAFF;
-  background: #7DAAFF linear-gradient(to bottom, #7daaff 67%,#ffffff 100%);
+  
   height: 100%;
   width: 100%;
   margin: 0;
@@ -21,6 +24,18 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+body {
+  /*background: transparent url(images/logo-new.png) no-repeat top center;*/
+}
+/* stamp */
+body::after {
+  content: 'by GipsyKing';
+  display: block;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 4em;
 }
 backdrop {
   position: absolute;
@@ -41,7 +56,7 @@ backdrop::before {
   left: 0;
   width: 2732px;
   transform: rotateX(-80deg) scale(2);
-  animation: backgroundScroll 20s linear infinite;
+  animation: backgroundScroll 120s linear infinite;
 }
 @keyframes backgroundScroll {
   from {background-position: 0 0;}
@@ -138,8 +153,10 @@ shard-map span[data-dir]:before {
   display: block;
   content: '';
   position: absolute;
-  left: -100%;
-  right: -100%;
+  left: -200%;
+  right: -200%;
+  top: 50%;
+  bottom: 100%;
   border: 0.12vw dashed black;
   box-shadow: 0 0 0.2vw white;
 }
@@ -157,6 +174,14 @@ shard-map span[data-dir="90"]:before {
 shard-map span[data-dir="180"]:before {
   transform: rotate(180deg);
 }
+shard-map span[data-type="endportal"]:before {
+  /*z-index: 2;*/
+  animation: dash .25s infinite linear;
+}
+@keyframes dash {
+  from {transform: translate(0) rotate(45deg)}
+  to {transform: translate(-4px, -4px) rotate(45deg)}
+}
 
 @media screen and (orientation: portrait) {
   body, html {
@@ -167,17 +192,11 @@ shard-map span[data-dir="180"]:before {
     height: 100vw;
   }
 }
-
-/* stamp */
-body::after {
-  content: 'by GipsyKing';
-  display: block;
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  font-size: 4em;
+@media screen and (max-width: 1000px) {
+  backdrop {
+    display: none;
+  }
 }
-
     </style>
   </head>
   <body>
@@ -208,7 +227,7 @@ body::after {
     <span></span>
     <span></span>
     <span></span>
-    <span></span>
+    <span data-dir="45" data-type="endportal"></span>
     <span></span>
   </div>
   <div>
