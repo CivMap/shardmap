@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Civcraft: Worlds Map</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
     <style type="text/css">
 * {
   box-sizing: border-box;
@@ -26,11 +25,10 @@ body, html {
   justify-content: center;
 }
 body {
-  /*background: transparent url(images/logo-new.png) no-repeat top center;*/
+  /*background: transparent url(images/logo-new.png) no-repeat top left;*/
 }
 /* stamp */
-body::after {
-  content: 'by GipsyKing';
+.watermark {
   display: block;
   position: absolute;
   right: 10px;
@@ -71,20 +69,21 @@ body::after {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
 }
 
-.shard-map > div {
+.shard-map .shard-row {
   height: 15%;
   flex: 0 0 15%;
   display: flex;
   justify-content: center;
 }
-.shard-map > div:nth-child(even) {
+.shard-map .shard-row:nth-child(even) {
   height: 5%;
   flex: 0 0 5%;
 }
 
-.shard-map > div > span {
+.shard-map .shard-row > * {
   width: 15%;
   flex: 0 0 15%;
   text-align: center;
@@ -92,64 +91,71 @@ body::after {
   align-items: center;
   justify-content: center;
 }
-.shard-map > div > span:nth-child(even) {
+.shard-map .shard-row > *:nth-child(even) {
   width: 5%;
   flex: 0 0 5%;
 }
-.shard-map > div > span:nth-child(odd) {
+.shard-map .shard-row > *:nth-child(odd) {
   /*align-items: flex-start;*/
 }
-.shard-map > div:nth-child(odd) > .shard {
+.shard-map .shard {
   position: relative;
   z-index: 1;
+  display: flex;
+  text-decoration: none;
 }
-.shard-map > div:nth-child(odd) > .shard > b {
+.shard-map .shard > h1 {
   /*text*/
+  font-size: 1em;
   display: block;
   z-index: 1;
   color: white;
   text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
 }
-.shard-map > div:nth-child(odd) > .shard > span {
-  /*image container*/
+
+.shard-map .shard .shard-image {
   position: absolute;
   top: 0;
   left: 0;
-  /*right: 0;
-  bottom: 0;*/
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   display: block;
   border-radius: 50%;
-  border: 0.25vw solid black;
-  background: black;
+  border: 0.3vw solid black;
   box-shadow: 0 1px 2vw white;
   overflow: hidden;
+  background: black;
 }
-.shard-map > div:nth-child(odd) > .shard:hover > span {
-  width: 110%;
-  height: 110%;
-  margin-left: -5%;
-  margin-top: -5%;
+.shard-map .shard .shard-large {
+  display: none;
 }
-.shard-map > div:nth-child(odd) > .shard > span > img {
+.shard-map .shard .shard-image > img {
+  display: block;
   position: absolute;
+  top: -5%;
+  left: -5%;
+  bottom: -5%;
+}
+.shard-map .shard:hover > h1 {
+  font-size: 1.1em;
+}
+/*.shard-map .shard:hover .shard-image {
+  left: -5%;
+  top: -5%;
+  right: -5%;
+  bottom: -5%;
+}
+.shard-map .shard:hover .shard-image > img {
   top: 0;
   left: 0;
-  display: block;
-  max-height: 100%;
-}
-
-/*.shard-map > div:nth-child(even) > span,
-.shard-map > div > span:nth-child(even):not(:empty) {
-  font-family: monospace;
-  font-size: 10em;
+  bottom: 0;
 }*/
 
-.shard-map span[data-dir] {
+
+.shard-map .shard-row div[data-dir] {
   position: relative;
 }
-.shard-map span[data-dir]:before {
+.shard-map .shard-row div[data-dir]:before {
   display: block;
   content: '';
   position: absolute;
@@ -160,19 +166,55 @@ body::after {
   border: 0.12vw dashed black;
   box-shadow: 0 0 0.2vw white;
 }
-.shard-map span[data-dir="45"]:before {
+.shard-map .shard-row div[data-dir="45"]:before {
   transform: rotate(45deg);
 }
-.shard-map span[data-dir="315"]:before {
+.shard-map .shard-row div[data-dir="315"]:before {
   transform: rotate(315deg);
 }
-.shard-map span[data-dir="90"]:before {
+.shard-map .shard-row div[data-dir="90"]:before {
   left: 0;
   right: 0;
   transform: rotate(90deg);
 }
-.shard-map span[data-dir="180"]:before {
+.shard-map .shard-row div[data-dir="180"]:before {
   transform: rotate(180deg);
+}
+
+portal {
+  position: absolute;
+  top: -0.3vw;
+  left: -0.3vw;
+  right: -0.3vw;
+  bottom: -0.3vw;
+  display: block;
+  border-radius: 50%;
+  border: 0.3vw solid #E8513A;
+  overflow: hidden;
+  -webkit-clip-path: polygon(25% 0, 50% 50%, 75% 0);
+  clip-path: polygon(25% 0, 50% 50%, 75% 0);
+}
+portal[direction=N] {}
+portal[direction=NE] {
+  transform: rotate(45deg);
+}
+portal[direction=E] {
+  transform: rotate(90deg);
+}
+portal[direction=SE] {
+  transform: rotate(135deg);
+}
+portal[direction=S] {
+  transform: rotate(180deg);
+}
+portal[direction=SW] {
+  transform: rotate(225deg);
+}
+portal[direction=W] {
+  transform: rotate(270deg);
+}
+portal[direction=NW] {
+  transform: rotate(315deg);
 }
 
 @media screen and (orientation: portrait) {
@@ -184,7 +226,7 @@ body::after {
     height: 100vw;
   }
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 800px) {
   .backdrop {
     display: none;
   }
@@ -194,145 +236,175 @@ body::after {
   <body>
 <div class="backdrop"></div>
 <div class="shard-map">
-  <div>
-    <span></span>
-    <span></span>
-    <span class="shard">
-      <b>Sheol</b>
-      <span><img src="images/sheol.png"></span>
-    </span>
-    <span></span>
-    <span class="shard" title="Multiple portals">
-      <b>Ovid</b>
-      <span><img src="images/end.png"></span>
-    </span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+  <div class="shard-row">
+    <div></div>
+    <div></div>
+    <a href="#" id="sheol" class="shard" data-radius="1300">
+      <h1>Sheol</h1>
+      <div class="shard-image"><img src="images/sheol.png"></div>
+      <portal destination="abydos" start="202.5d" end="247.5d" direction="SW"></portal>
+      <portal destination="tigrillo" start="112.5d" end="157.5d" direction="SE"></portal>
+    </a>
+    <div></div>
+    <a href="#" id="ovid" class="shard">
+      <h1>Ovid</h1>
+      <div class="shard-image"><img src="images/end.png"></div>
+    </a>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-  <div>
-    <span></span>
-    <span data-dir="315"></span>
-    <span></span>
-    <span data-dir="45"></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+  <div class="shard-row">
+    <div></div>
+    <div data-dir="315"></div>
+    <div></div>
+    <div data-dir="45"></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-  <div>
-    <span class="shard">
-      <b>Abydos</b>
-      <span><img src="images/abydos.png"></span>
-    </span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span class="shard">
-      <b>Tigrillo</b>
-      <span><img src="images/tigrillo.png"></span>
-    </span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span class="shard">
-      <b>Naunet</b>
-      <span><img src="images/naunet.png"></span> 
-    </span>
+  <div class="shard-row">
+    <a href="#" id="abydos" class="shard">
+      <h1>Abydos</h1>
+      <div class="shard-image"><img src="images/abydos.png"></div>
+      <portal destination="Sheol" start="22.5deg" end="67.5deg" direction="NE"></portal>
+		  <portal destination="Eilon" start="112.5deg" end="157.5deg" direction="SE"></portal>
+    </a>
+    <div></div>
+    <div></div>
+    <div></div>
+    <a href="#" id="tigrillo" class="shard">
+      <h1>Tigrillo</h1>
+      <div class="shard-image"><img src="images/tigrillo.png"></div>
+      <portal destination="Sheol" start="270deg" end="330deg" direction="NW"></portal>
+		  <portal destination="Ulca Felya" start="150deg" end="210deg" direction="S"></portal>
+    </a>
+    <div></div>
+    <div></div>
+    <div></div>
+    <a href="#" class="shard">
+      <h1>Naunet</h1>
+      <div class="shard-image"><img src="images/naunet.png"></div>
+      <portal destination="Tjikko" start="202.5deg" end="247.5deg" direction="SW"></portal>
+    </a>
   </div>
-  <div>
-    <span></span>
-    <span data-dir="45"></span>
-    <span></span>
-    <span></span>
-    <span data-dir="90"></span>
-    <span></span>
-    <span></span>
-    <span data-dir="315"></span>
-    <span></span>
+  <div class="shard-row">
+    <div></div>
+    <div data-dir="45"></div>
+    <div></div>
+    <div></div>
+    <div data-dir="90"></div>
+    <div></div>
+    <div></div>
+    <div data-dir="315"></div>
+    <div></div>
   </div>
-  <div>
-    <span></span>
-    <span></span>
-    <span class="shard">
-      <b>Eilon</b>
-      <span><img src="images/eilon.jpg"></span>
-    </span>
-    <span data-dir="180"></span>
-    <span class="shard">
-      <b>Ulca Felya</b>
-      <span><img src="images/ulca_felya.jpg"></span>
-    </span>
-    <span data-dir="180"></span>
-    <span class="shard">
-      <b>Tjikko</b>
-      <span><img src="images/tjikko.png"></span>
-    </span>
-    <span></span>
-    <span></span>
+  <div class="shard-row">
+    <div></div>
+    <div></div>
+    <a href="#" class="shard">
+      <h1>Eilon</h1>
+      <div class="shard-image"><img src="images/eilon.jpg"></div>
+      <portal destination="Ulca Felya" start="60deg" end="120deg" direction="E"></portal>
+      <portal destination="Padzahr" start="180deg" end="240deg" direction="NW"></portal>
+      <portal destination="Abydos" start="300deg" end="0deg" direction="SW"></portal>
+    </a>
+    <div data-dir="180"></div>
+    <a href="#" class="shard">
+      <h1>Ulca Felya</h1>
+      <div class="shard-image"><img src="images/ulca_felya.jpg"></div>
+      <portal destination="Tigrillo" start="337.5deg" end="22.5deg" direction="N"></portal>
+      <portal destination="Eilon" start="247.5deg" end="292.5deg" direction="W"></portal>
+      <portal destination="Tjikko" start="67.5deg" end="112.5deg" direction="E"></portal>
+      <portal destination="Drakontas" start="157.5deg" end="202.5deg" direction="S"></portal>
+    </a>
+    <div data-dir="180"></div>
+    <a href="#" class="shard">
+      <h1>Tjikko</h1>
+      <div class="shard-image"><img src="images/tjikko.png"></div>
+      <portal destination="Naunet" start="0deg" end="60deg" direction="NE"></portal>
+      <portal destination="Rokko Steppe" start="120deg" end="180deg" direction="SE"></portal>
+      <portal destination="Ulca Felya" start="240deg" end="300deg" direction="W"></portal>
+    </a>
+    <div></div>
+    <div></div>
   </div>
-  <div>
-    <span></span>
-    <span data-dir="315"></span>
-    <span></span>
-    <span></span>
-    <span data-dir="90"></span>
-    <span></span>
-    <span></span>
-    <span data-dir="45"></span>
-    <span></span>
+  <div class="shard-row">
+    <div></div>
+    <div data-dir="315"></div>
+    <div></div>
+    <div></div>
+    <div data-dir="90"></div>
+    <div></div>
+    <div></div>
+    <div data-dir="45"></div>
+    <div></div>
   </div>
-  <div>
-    <span class="shard">
-      <b>Padzahr</b>
-      <span><img src="images/padzahr.png"></span>
-    </span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span class="shard">
-      <b>Dracontas</b>
-      <span><img src="images/dracontas.png"></span>
-    </span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span class="shard">
-      <b>Rokko Steppe</b>
-      <span><img src="images/rokko_steppe.png"></span>
-    </span>
+  <div class="shard-row">
+    <a href="#" class="shard">
+      <h1>Padzahr</h1>
+      <div class="shard-image"><img src="images/padzahr.png"></div>
+      <portal destination="Isolde" start="112.5deg" end="157.5deg" direction="SE"></portal>
+      <portal destination="Eilon" start="22.5deg" end="67.5deg" direction="NE"></portal>
+    </a>
+    <div></div>
+    <div></div>
+    <div></div>
+    <a href="#" class="shard">
+      <h1>Dracontas</h1>
+      <div class="shard-image"><img src="images/dracontas.png"></div>
+      <portal destination="Volans" start="90deg" end="150deg" direction="SE"></portal>
+      <portal destination="Isolde" start="210deg" end="270deg" direction="SW"></portal>
+      <portal destination="Ulca Felya" start="330deg" end="30deg" direction="N"></portal>
+    </a>
+    <div></div>
+    <div></div>
+    <div></div>
+    <a href="#" class="shard">
+      <h1>Rokko Steppe</h1>
+      <div class="shard-image"><img src="images/rokko_steppe.png"></div>
+      <portal destination="Volans" start="202.5deg" end="247.5deg" direction="SW"></portal>
+		  <portal destination="Tjikko" start="292.5deg" end="337.5deg" direction="NW"></portal>
+    </a>
   </div>
-  <div>
-    <span></span>
-    <span data-dir="45"></span>
-    <span></span>
-    <span data-dir="315"></span>
-    <span></span>
-    <span data-dir="45"></span>
-    <span></span>
-    <span data-dir="315"></span>
-    <span></span>
+  <div class="shard-row">
+    <div></div>
+    <div data-dir="45"></div>
+    <div></div>
+    <div data-dir="315"></div>
+    <div></div>
+    <div data-dir="45"></div>
+    <div></div>
+    <div data-dir="315"></div>
+    <div></div>
   </div>
-  <div>
-    <span></span>
-    <span></span>
-    <span class="shard">
-      <b>Isolde</b>
-      <span><img src="images/isolde.jpg"></span>
-    </span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span class="shard">
-      <b>Volans</b>
-      <span><img src="images/volans.png"></span>
-    </span>
-    <span></span>
-    <span></span>
+  <div class="shard-row">
+    <div></div>
+    <div></div>
+    <a href="#" class="shard">
+      <h1>Isolde</h1>
+      <div class="shard-image"><img src="images/isolde.jpg"></div>
+      <portal destination="Drakontas" start="22.5deg" end="67.5deg" direction="NE"></portal>
+		  <portal destination="Padzahr" start="292.5deg" end="337.5deg" direction="NW"></portal>
+    </a>
+    <div></div>
+    <div></div>
+    <div></div>
+    <a href="#" class="shard">
+      <h1>Volans</h1>
+      <div class="shard-image"><img src="images/volans.png"></div>
+      <portal destination="Rokko Steppe" start="22.5deg" end="67.5deg" direction="NE"></portal>
+		  <portal destination="Drakontas" start="292.5deg" end="337.5deg" direction="NW"></portal>
+    </a>
+    <div></div>
+    <div></div>
   </div>
 </div>
+    <div class="watermark">by GipsyKing</div>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
   </body>
 </html>
 
