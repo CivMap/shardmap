@@ -18,6 +18,7 @@ body, html {
   
   height: 100%;
   width: 100%;
+  overflow: hidden;
   margin: 0;
   padding: 0;
   display: flex;
@@ -182,39 +183,88 @@ body {
 }
 
 portal {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+}
+portal:before {
+  display: block;
   position: absolute;
   top: -0.3vw;
   left: -0.3vw;
   right: -0.3vw;
   bottom: -0.3vw;
-  display: block;
+  content: '';
   border-radius: 50%;
   border: 0.3vw solid #E8513A;
   overflow: hidden;
   -webkit-clip-path: polygon(25% 0, 50% 50%, 75% 0);
   clip-path: polygon(25% 0, 50% 50%, 75% 0);
 }
-portal[direction=N] {}
+portal[direction=N] {
+}
 portal[direction=NE] {
   transform: rotate(45deg);
+}
+portal[direction=NE] span {
+  transform: rotate(-45deg);
 }
 portal[direction=E] {
   transform: rotate(90deg);
 }
+portal[direction=E] span {
+  transform: rotate(-90deg);
+}
 portal[direction=SE] {
   transform: rotate(135deg);
+}
+portal[direction=SE] span {
+  transform: rotate(-135deg);
 }
 portal[direction=S] {
   transform: rotate(180deg);
 }
+portal[direction=S] span {
+  transform: rotate(-180deg);
+}
 portal[direction=SW] {
   transform: rotate(225deg);
+}
+portal[direction=SW] span {
+  transform: rotate(-225deg);
 }
 portal[direction=W] {
   transform: rotate(270deg);
 }
+portal[direction=W] span {
+  transform: rotate(-270deg);
+}
 portal[direction=NW] {
   transform: rotate(315deg);
+}
+portal[direction=NW] span {
+  transform: rotate(-315deg);
+}
+portal span {
+  position: absolute;
+  z-index: 1;
+  transform-origin: 50% 50%;
+  margin-top: -2em;
+  font-size: 0.75em;
+  color: white;
+  text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
+}
+
+.shard-active portal {
+  display: flex;
+}
+
+checkbox, label {
+  position: absolute;
 }
 
 @media screen and (orientation: portrait) {
@@ -242,8 +292,8 @@ portal[direction=NW] {
     <a href="#" id="sheol" class="shard" data-radius="1300">
       <h1>Sheol</h1>
       <div class="shard-image"><img src="images/sheol.png"></div>
-      <portal destination="abydos" start="202.5d" end="247.5d" direction="SW"></portal>
-      <portal destination="tigrillo" start="112.5d" end="157.5d" direction="SE"></portal>
+      <portal destination="abydos" start="202.5deg" end="247.5deg" direction="SW"></portal>
+      <portal destination="tigrillo" start="112.5deg" end="157.5deg" direction="SE"></portal>
     </a>
     <div></div>
     <a href="#" id="ovid" class="shard">
@@ -267,7 +317,7 @@ portal[direction=NW] {
     <div></div>
   </div>
   <div class="shard-row">
-    <a href="#" id="abydos" class="shard">
+    <a href="#" id="abydos" class="shard" data-radius="2000">
       <h1>Abydos</h1>
       <div class="shard-image"><img src="images/abydos.png"></div>
       <portal destination="Sheol" start="22.5deg" end="67.5deg" direction="NE"></portal>
@@ -276,7 +326,7 @@ portal[direction=NW] {
     <div></div>
     <div></div>
     <div></div>
-    <a href="#" id="tigrillo" class="shard">
+    <a href="#" id="tigrillo" class="shard" data-radius="1750">
       <h1>Tigrillo</h1>
       <div class="shard-image"><img src="images/tigrillo.png"></div>
       <portal destination="Sheol" start="270deg" end="330deg" direction="NW"></portal>
@@ -285,7 +335,7 @@ portal[direction=NW] {
     <div></div>
     <div></div>
     <div></div>
-    <a href="#" class="shard">
+    <a href="#" id="naunet" class="shard" data-radius="1000">
       <h1>Naunet</h1>
       <div class="shard-image"><img src="images/naunet.png"></div>
       <portal destination="Tjikko" start="202.5deg" end="247.5deg" direction="SW"></portal>
@@ -305,7 +355,7 @@ portal[direction=NW] {
   <div class="shard-row">
     <div></div>
     <div></div>
-    <a href="#" class="shard">
+    <a href="#" id="eilon" class="shard" data-radius="1500">
       <h1>Eilon</h1>
       <div class="shard-image"><img src="images/eilon.jpg"></div>
       <portal destination="Ulca Felya" start="60deg" end="120deg" direction="E"></portal>
@@ -313,7 +363,7 @@ portal[direction=NW] {
       <portal destination="Abydos" start="300deg" end="0deg" direction="SW"></portal>
     </a>
     <div data-dir="180"></div>
-    <a href="#" class="shard">
+    <a href="#" id="ulca-felya" class="shard" data-radius="3000">
       <h1>Ulca Felya</h1>
       <div class="shard-image"><img src="images/ulca_felya.jpg"></div>
       <portal destination="Tigrillo" start="337.5deg" end="22.5deg" direction="N"></portal>
@@ -322,7 +372,7 @@ portal[direction=NW] {
       <portal destination="Drakontas" start="157.5deg" end="202.5deg" direction="S"></portal>
     </a>
     <div data-dir="180"></div>
-    <a href="#" class="shard">
+    <a href="#" id="tjikko" class="shard" data-radius="1500">
       <h1>Tjikko</h1>
       <div class="shard-image"><img src="images/tjikko.png"></div>
       <portal destination="Naunet" start="0deg" end="60deg" direction="NE"></portal>
@@ -344,7 +394,7 @@ portal[direction=NW] {
     <div></div>
   </div>
   <div class="shard-row">
-    <a href="#" class="shard">
+    <a href="#" id="padzahr" class="shard" data-radius="1000">
       <h1>Padzahr</h1>
       <div class="shard-image"><img src="images/padzahr.png"></div>
       <portal destination="Isolde" start="112.5deg" end="157.5deg" direction="SE"></portal>
@@ -353,8 +403,8 @@ portal[direction=NW] {
     <div></div>
     <div></div>
     <div></div>
-    <a href="#" class="shard">
-      <h1>Dracontas</h1>
+    <a href="#" id="drakontas" class="shard" data-radius="1750">
+      <h1>Drakontas</h1>
       <div class="shard-image"><img src="images/dracontas.png"></div>
       <portal destination="Volans" start="90deg" end="150deg" direction="SE"></portal>
       <portal destination="Isolde" start="210deg" end="270deg" direction="SW"></portal>
@@ -363,7 +413,7 @@ portal[direction=NW] {
     <div></div>
     <div></div>
     <div></div>
-    <a href="#" class="shard">
+    <a href="#" id="rokko-steppe" class="shard" data-radius="2000">
       <h1>Rokko Steppe</h1>
       <div class="shard-image"><img src="images/rokko_steppe.png"></div>
       <portal destination="Volans" start="202.5deg" end="247.5deg" direction="SW"></portal>
@@ -384,7 +434,7 @@ portal[direction=NW] {
   <div class="shard-row">
     <div></div>
     <div></div>
-    <a href="#" class="shard">
+    <a href="#" id="isolde" class="shard" data-radius="2500">
       <h1>Isolde</h1>
       <div class="shard-image"><img src="images/isolde.jpg"></div>
       <portal destination="Drakontas" start="22.5deg" end="67.5deg" direction="NE"></portal>
@@ -393,7 +443,7 @@ portal[direction=NW] {
     <div></div>
     <div></div>
     <div></div>
-    <a href="#" class="shard">
+    <a href="#" id="volans" class="shard" data-radius="1000">
       <h1>Volans</h1>
       <div class="shard-image"><img src="images/volans.png"></div>
       <portal destination="Rokko Steppe" start="22.5deg" end="67.5deg" direction="NE"></portal>
@@ -403,8 +453,42 @@ portal[direction=NW] {
     <div></div>
   </div>
 </div>
+<label>
+  <input type="checkbox">
+  Scaled
+</label>
     <div class="watermark">by GipsyKing</div>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
+    <xlink href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
+    <script>
+const unbind = (method, ...args) => context => method.apply(context, args); // returns function with one parameter "context" that calls "method" with "context" and "args"
+
+const degreesFromAttr = attr => Number(attr.match(/([\d\.]*)deg/).slice(1));
+const coords = (radius, degrees) => [radius * Math.sin(degrees), radius * Math.cos(degrees)].map(Math.floor);
+
+let active = [];
+
+Array.prototype.forEach.call(document.querySelectorAll('a.shard'), unbind(HTMLElement.prototype.addEventListener, 'click', event => {
+  event.preventDefault(); // cancel hash navigation
+  active.forEach(element => element.classList.remove('shard-active'));
+  active = [event.currentTarget];
+  active.forEach(element => element.classList.add('shard-active'));
+}, true));
+
+Array.prototype.forEach.call(document.querySelectorAll('a.shard'), element => {
+  const radius = Number(element.getAttribute('data-radius'));
+  
+  Array.prototype.forEach.call(element.querySelectorAll('portal'), portal => {
+    const start = degreesFromAttr(portal.getAttribute('start'));
+    const end = degreesFromAttr(portal.getAttribute('end'));
+    
+    const span = document.createElement('span');
+    span.innerText = coords(radius, (start + end) / 2).join(',');
+    portal.appendChild(span);
+  });
+
+  document.querySelector('style').sheet.insertRule(`.scaled .shard { transform: scale(${radius / 1000}) }`);
+});
+    </script>
   </body>
 </html>
 
