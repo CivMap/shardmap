@@ -483,10 +483,10 @@ Array.prototype.forEach.call(document.querySelectorAll('a.shard'), element => {
     
     const span = document.createElement('span');
     span.innerText = coords(radius, (start + end) / 2).join(',');
-    portal.appendChild(span);
+    // portal.appendChild(span);
   });
 
-  document.querySelector('style').sheet.insertRule(`.scaled .shard { transform: scale(${radius / 1000}) }`);
+  // document.querySelector('style').sheet.insertRule(`.scaled .shard { transform: scale(${radius / 1000}) }`);
 });
     </script>
   </body>
