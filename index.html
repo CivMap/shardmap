@@ -266,10 +266,10 @@ portal[direction=drop] span {
 }
 portal span {
   position: absolute;
-  z-index: 1;
+  z-index: 200;
   transform-origin: 50% 50%;
   margin-top: -2em;
-  font-size: 0.75em;
+  font-size: 0.6em;
   color: white;
   text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
 }
@@ -278,8 +278,11 @@ portal span {
   display: flex;
 }
 
-checkbox, label {
+.checkbox-scaled {
   position: absolute;
+  left: 0;
+  bottom: 0;
+  font-size: 2em;
 }
 
 @media screen and (orientation: portrait) {
@@ -469,7 +472,7 @@ checkbox, label {
     <div></div>
   </div>
 </div>
-<label>
+<label class="checkbox-scaled">
   <input type="checkbox">
   Scaled
 </label>
@@ -497,7 +500,7 @@ setTimeout(() => {
     
     Array.prototype.forEach.call(element.querySelectorAll('portal'), portal => {
       let text;
-      if (portal.hasAttribute('start')) {
+      if (radius !== 0 && portal.hasAttribute('start')) {
         const start = degreesFromAttr(portal.getAttribute('start'));
         const end = degreesFromAttr(portal.getAttribute('end'));
         text = coords(radius, (start + end) / 2).join(',');
@@ -510,8 +513,15 @@ setTimeout(() => {
       portal.appendChild(span);
     });
 
-    document.querySelector('style').sheet.insertRule(`.scaled .shard { transform: scale(${radius / 1000}) }`);
+    if (radius !== 0) {
+      document.querySelector('style').sheet.insertRule(`.shard-map-scaled #${element.id} { transform: scale(${radius / 1000}) }`,
+        document.querySelector('style').sheet.rules.length);
+    }
   });
+
+  document.querySelector('.checkbox-scaled input[type=checkbox]').addEventListener('change', event => {
+    document.querySelector('.shard-map').classList[event.currentTarget.checked ? 'add' : 'remove']('shard-map-scaled');
+  }, true);
 }, 0);
     </script>
   </body>
