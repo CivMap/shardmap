@@ -35,6 +35,8 @@ body {
   right: 10px;
   bottom: 10px;
   font-size: 4em;
+  text-decoration: none;
+  color: black;
 }
 .backdrop {
   position: absolute;
@@ -181,6 +183,9 @@ body {
 .shard-map .shard-row div[data-dir="180"]:before {
   transform: rotate(180deg);
 }
+.shard-map .shard-row div[data-dir].end-connection:before {
+  border-style: dotted;
+}
 
 portal {
   display: none;
@@ -249,6 +254,16 @@ portal[direction=NW] {
 portal[direction=NW] span {
   transform: rotate(-315deg);
 }
+portal[direction=drop] {
+  transform: rotate(180deg);
+}
+portal[direction=drop]:before {
+  -webkit-clip-path: none;
+  clip-path: none;
+}
+portal[direction=drop] span {
+  transform: rotate(-180deg);
+}
 portal span {
   position: absolute;
   z-index: 1;
@@ -296,14 +311,15 @@ checkbox, label {
       <portal destination="tigrillo" start="112.5deg" end="157.5deg" direction="SE"></portal>
     </a>
     <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
     <a href="#" id="ovid" class="shard">
       <h1>Ovid</h1>
       <div class="shard-image"><img src="images/end.png"></div>
+      <portal destination="naunet" direction="drop"></portal>
     </a>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
   </div>
   <div class="shard-row">
     <div></div>
@@ -314,7 +330,7 @@ checkbox, label {
     <div></div>
     <div></div>
     <div></div>
-    <div></div>
+    <div data-dir="90" class="end-connection"></div>
   </div>
   <div class="shard-row">
     <a href="#" id="abydos" class="shard" data-radius="2000">
@@ -457,37 +473,46 @@ checkbox, label {
   <input type="checkbox">
   Scaled
 </label>
-    <div class="watermark">by GipsyKing</div>
-    <xlink href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
+    <a href="https://github.com/gipsy-king/civmap" class="watermark">by GipsyKing</a>
     <script>
-const unbind = (method, ...args) => context => method.apply(context, args); // returns function with one parameter "context" that calls "method" with "context" and "args"
+setTimeout(() => {
+  const unbind = (method, ...args) => context => method.apply(context, args); // returns function with one parameter "context" that calls "method" with "context" and "args"
 
-const degreesFromAttr = attr => Number(attr.match(/([\d\.]*)deg/).slice(1));
-const coords = (radius, degrees) => [radius * Math.sin(degrees), radius * Math.cos(degrees)].map(Math.floor);
+  const degreesFromAttr = attr => Number(attr.match(/([\d\.]*)deg/).slice(1));
+  const carthesianRadians = degrees => (degrees + 90) * Math.PI / 180;
+  const coords = (radius, degrees) => [radius * Math.cos(carthesianRadians(degrees)), radius * Math.sin(carthesianRadians(degrees))]
+    .map(p => p * -1).map(p => p / 5).map(Math.round).map(p => p * 5);
 
-let active = [];
+  let active = [];
 
-Array.prototype.forEach.call(document.querySelectorAll('a.shard'), unbind(HTMLElement.prototype.addEventListener, 'click', event => {
-  event.preventDefault(); // cancel hash navigation
-  active.forEach(element => element.classList.remove('shard-active'));
-  active = [event.currentTarget];
-  active.forEach(element => element.classList.add('shard-active'));
-}, true));
+  Array.prototype.forEach.call(document.querySelectorAll('a.shard'), unbind(HTMLElement.prototype.addEventListener, 'click', event => {
+    event.preventDefault(); // cancel hash navigation
+    active.forEach(element => element.classList.remove('shard-active'));
+    active = [event.currentTarget];
+    active.forEach(element => element.classList.add('shard-active'));
+  }, true));
 
-Array.prototype.forEach.call(document.querySelectorAll('a.shard'), element => {
-  const radius = Number(element.getAttribute('data-radius'));
-  
-  Array.prototype.forEach.call(element.querySelectorAll('portal'), portal => {
-    const start = degreesFromAttr(portal.getAttribute('start'));
-    const end = degreesFromAttr(portal.getAttribute('end'));
+  Array.prototype.forEach.call(document.querySelectorAll('a.shard'), element => {
+    const radius = Number(element.getAttribute('data-radius'));
     
-    const span = document.createElement('span');
-    span.innerText = coords(radius, (start + end) / 2).join(',');
-    // portal.appendChild(span);
-  });
+    Array.prototype.forEach.call(element.querySelectorAll('portal'), portal => {
+      let text;
+      if (portal.hasAttribute('start')) {
+        const start = degreesFromAttr(portal.getAttribute('start'));
+        const end = degreesFromAttr(portal.getAttribute('end'));
+        text = coords(radius, (start + end) / 2).join(',');
+      } else {
+        text = 'Drop into the void';
+      }
+      
+      const span = document.createElement('span');
+      span.innerText = text;
+      portal.appendChild(span);
+    });
 
-  // document.querySelector('style').sheet.insertRule(`.scaled .shard { transform: scale(${radius / 1000}) }`);
-});
+    document.querySelector('style').sheet.insertRule(`.scaled .shard { transform: scale(${radius / 1000}) }`);
+  });
+}, 0);
     </script>
   </body>
 </html>
