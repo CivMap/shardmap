@@ -113,6 +113,8 @@ body {
   font-size: 1em;
   display: block;
   z-index: 1;
+  max-width: 100%;
+  word-break: break-all;
   color: white;
   text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
 }
@@ -195,11 +197,13 @@ portal {
   left: 0;
   right: 0;
   bottom: 0;
+  align-items: flex-start;
   justify-content: center;
 }
 portal:before {
   display: block;
   position: absolute;
+  z-index: 0;
   top: -0.3vw;
   left: -0.3vw;
   right: -0.3vw;
@@ -210,6 +214,8 @@ portal:before {
   overflow: hidden;
   -webkit-clip-path: polygon(25% 0, 50% 50%, 75% 0);
   clip-path: polygon(25% 0, 50% 50%, 75% 0);
+  -webkit-clip-path: url("#clip-shape"); 
+  clip-path: url("#clip-shape");
 }
 portal[direction=N] {
 }
@@ -259,14 +265,14 @@ portal[direction=drop] {
   transform: rotate(180deg);
 }
 portal[direction=drop]:before {
-  -webkit-clip-path: none;
-  clip-path: none;
+  -webkit-clip-path: unset;
+  clip-path: unset;
 }
 portal[direction=drop] span {
   transform: rotate(-180deg);
 }
 portal span {
-  position: absolute;
+  position: relative;
   z-index: 200;
   transform-origin: 50% 50%;
   margin-top: -2em;
@@ -478,6 +484,15 @@ portal span {
   Scaled
 </label>
     <a href="https://github.com/gipsy-king/civmap" class="watermark">by GipsyKing</div>
+
+
+  <svg width="0" height="0">
+    <defs>
+      <clipPath id="clip-shape" clipPathUnits="objectBoundingBox">
+        <polygon points="0.25 0, 0.5 0.5, 0.75 0" />
+      </clipPath>
+    </defs>
+  </svg>
     <script>
 setTimeout(() => {
   const unbind = (method, ...args) => context => method.apply(context, args); // returns function with one parameter "context" that calls "method" with "context" and "args"
@@ -520,7 +535,7 @@ setTimeout(() => {
 
     if (radius !== 0) {
       document.querySelector('style').sheet.insertRule(`.shard-map-scaled #${element.id} { transform: scale(${radius / 1000}) }`,
-        document.querySelector('style').sheet.rules.length);
+        (document.querySelector('style').sheet.rules || []).length);
     }
   });
 
